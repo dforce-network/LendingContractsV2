@@ -53,6 +53,10 @@ Before runs the script to deploy contract, should set all underlying tokens addr
 npx hardhat run scripts/deploy.js --network kovan
 ```
 
+#### Deployed Addresses
+
+[DeployedAddresses.md](DeployedAddresses.md)
+
 #### Developer Documentation
 
 [https://developers.dforce.network/lend/lend-and-synth](https://developers.dforce.network/lend/lend-and-synth)
