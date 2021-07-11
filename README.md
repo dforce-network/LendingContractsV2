@@ -1,6 +1,6 @@
-### Lending prototyping
+### dForce Lending Contracts
 
-![Github CI](https://github.com/dforce-network/LendingContracts/workflows/Node.js%20CI/badge.svg) [![built-with openzeppelin](https://img.shields.io/badge/built%20with-OpenZeppelin-3677FF)](https://docs.openzeppelin.com/)
+![Github CI](https://github.com/dforce-network/LendingContractsV2/workflows/CI/badge.svg) [![built-with openzeppelin](https://img.shields.io/badge/built%20with-OpenZeppelin-3677FF)](https://docs.openzeppelin.com/)
 
 ##### Usage
 
@@ -40,6 +40,8 @@ All parameters in `.example.env` are:
 
 - INFURA_KEY: Required, infura key to connect to the Ethereum blockchain.
 
+- ALCHEMY_KEY: Required, Alchemy key to connect to the Ethereum blockchain.
+
 - PRIVATE_KEY: Required, the account to deploy the contracts.
 
 - ASSETS: Required, an array that contains underlying tokens to deploy corresponding iTokens.
@@ -50,3 +52,7 @@ Before runs the script to deploy contract, should set all underlying tokens addr
 ```
 npx hardhat run scripts/deploy.js --network kovan
 ```
+
+#### Developer Documentation
+
+[https://developers.dforce.network/lend/lend-and-synth](https://developers.dforce.network/lend/lend-and-synth)
