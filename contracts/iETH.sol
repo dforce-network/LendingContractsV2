@@ -20,7 +20,7 @@ contract iETH is Base {
         openCash = msg.value;
 
         _;
-        
+
         openCash = 0;
     }
 
@@ -51,12 +51,12 @@ contract iETH is Base {
     /**
      * @dev ETH has been transfered in by `msg.value`, so just return amount directly.
      */
-    function _doTransferIn(address _spender, uint256 _amount)
+    function _doTransferIn(address _sender, uint256 _amount)
         internal
         override
         returns (uint256)
     {
-        _spender;
+        _sender;
         openCash = openCash.sub(_amount);
         return _amount;
     }
@@ -141,10 +141,15 @@ contract iETH is Base {
     /**
      * @dev Caller repays their own borrow.
      */
-    function repayBorrow() external payable nonReentrant tracksValue settleInterest {
+    function repayBorrow()
+        external
+        payable
+        nonReentrant
+        tracksValue
+        settleInterest
+    {
         _repayInternal(msg.sender, msg.sender, msg.value);
-        if (openCash > 0)
-            msg.sender.transfer(openCash);
+        if (openCash > 0) msg.sender.transfer(openCash);
     }
 
     /**
@@ -159,8 +164,7 @@ contract iETH is Base {
         settleInterest
     {
         _repayInternal(msg.sender, _borrower, msg.value);
-        if (openCash > 0)
-            msg.sender.transfer(openCash);
+        if (openCash > 0) msg.sender.transfer(openCash);
     }
 
     /**

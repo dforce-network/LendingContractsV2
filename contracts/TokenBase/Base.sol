@@ -111,13 +111,13 @@ abstract contract Base is TokenERC20 {
             _vars.blockDelta = _vars.currentBlockNumber.sub(accrualBlockNumber);
 
             /**
-            * Calculates the interest accumulated into borrows and reserves and the new index:
-            *  simpleInterestFactor = borrowRate * blockDelta
-            *  interestAccumulated = simpleInterestFactor * totalBorrows
-            *  newTotalBorrows = interestAccumulated + totalBorrows
-            *  newTotalReserves = interestAccumulated * reserveFactor + totalReserves
-            *  newBorrowIndex = simpleInterestFactor * borrowIndex + borrowIndex
-            */
+             * Calculates the interest accumulated into borrows and reserves and the new index:
+             *  simpleInterestFactor = borrowRate * blockDelta
+             *  interestAccumulated = simpleInterestFactor * totalBorrows
+             *  newTotalBorrows = interestAccumulated + totalBorrows
+             *  newTotalReserves = interestAccumulated * reserveFactor + totalReserves
+             *  newBorrowIndex = simpleInterestFactor * borrowIndex + borrowIndex
+             */
             _vars.simpleInterestFactor = _vars.borrowRate.mul(_vars.blockDelta);
             _vars.interestAccumulated = _vars.simpleInterestFactor.rmul(
                 _vars.totalBorrows
@@ -572,7 +572,7 @@ abstract contract Base is TokenERC20 {
      * @notice Users are expected to have enough allowance and balance before calling.
      * @dev Transfers asset in.
      */
-    function _doTransferIn(address _spender, uint256 _amount)
+    function _doTransferIn(address _sender, uint256 _amount)
         internal
         virtual
         returns (uint256);

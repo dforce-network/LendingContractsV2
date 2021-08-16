@@ -22,7 +22,7 @@ contract TokenEvent is TokenStorage {
     );
 
     event Mint(
-        address spender,
+        address sender,
         address recipient,
         uint256 mintAmount,
         uint256 mintTokens

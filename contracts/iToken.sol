@@ -55,13 +55,13 @@ contract iToken is Base {
      * @notice In order to support deflationary token, returns the changed amount.
      * @dev Similar to EIP20 transfer, except it handles a False result from `transferFrom`.
      */
-    function _doTransferIn(address _spender, uint256 _amount)
+    function _doTransferIn(address _sender, uint256 _amount)
         internal
         override
         returns (uint256)
     {
         uint256 _balanceBefore = underlying.balanceOf(address(this));
-        underlying.safeTransferFrom(_spender, address(this), _amount);
+        underlying.safeTransferFrom(_sender, address(this), _amount);
         return underlying.balanceOf(address(this)).sub(_balanceBefore);
     }
 

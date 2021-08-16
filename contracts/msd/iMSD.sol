@@ -102,12 +102,12 @@ contract iMSD is Base {
      * @notice Supposed to transfer underlying token into this contract
      * @dev iMSD burns the amount of underlying rather than transfering.
      */
-    function _doTransferIn(address _spender, uint256 _amount)
+    function _doTransferIn(address _sender, uint256 _amount)
         internal
         override
         returns (uint256)
     {
-        MSD(address(underlying)).burn(_spender, _amount);
+        MSD(address(underlying)).burn(_sender, _amount);
         return _amount;
     }
 
@@ -141,7 +141,10 @@ contract iMSD is Base {
 
             // Notify the MSD controller to update earning
             if (_interestAccumulated > 0) {
-                msdController.addEarning(address(underlying), _interestAccumulated);
+                msdController.addEarning(
+                    address(underlying),
+                    _interestAccumulated
+                );
             }
         }
     }

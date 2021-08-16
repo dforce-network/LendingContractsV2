@@ -205,11 +205,11 @@ contract MSDS is Initializable, ReentrancyGuard, Ownable, ERC20 {
      * @notice Supposed to transfer underlying token into this contract
      * @dev MSDS burns the amount of underlying rather than transfering.
      */
-    function _doTransferIn(address _spender, uint256 _amount)
+    function _doTransferIn(address _sender, uint256 _amount)
         internal
         returns (uint256)
     {
-        MSD(underlying).burn(_spender, _amount);
+        MSD(underlying).burn(_sender, _amount);
         return _amount;
     }
 

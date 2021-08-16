@@ -9,31 +9,26 @@ import "./TokenAdmin.sol";
  */
 abstract contract TokenERC20 is TokenAdmin {
     /**
-     * @dev Transfers `_amount` tokens from `_spender` to `_recipient`.
-     * @param _spender The address of the source account.
+     * @dev Transfers `_amount` tokens from `_sender` to `_recipient`.
+     * @param _sender The address of the source account.
      * @param _recipient The address of the destination account.
      * @param _amount The number of tokens to transfer.
      */
     function _transferTokens(
-        address _spender,
+        address _sender,
         address _recipient,
         uint256 _amount
     ) internal returns (bool) {
         require(
-            _spender != _recipient,
+            _sender != _recipient,
             "_transferTokens: Do not self-transfer!"
         );
 
-        controller.beforeTransfer(
-            address(this),
-            msg.sender,
-            _recipient,
-            _amount
-        );
+        controller.beforeTransfer(address(this), _sender, _recipient, _amount);
 
-        _transfer(_spender, _recipient, _amount);
+        _transfer(_sender, _recipient, _amount);
 
-        controller.afterTransfer(address(this), _spender, _recipient, _amount);
+        controller.afterTransfer(address(this), _sender, _recipient, _amount);
 
         return true;
     }
@@ -62,23 +57,23 @@ abstract contract TokenERC20 is TokenAdmin {
 
     /**
      * @notice Cause iToken is an ERC20 token, so users can `transferFrom` them,
-     *         but this action is only allowed when after transferring tokens, the `_spender`
+     *         but this action is only allowed when after transferring tokens, the `_sender`
      *         does not have a shortfall.
-     * @dev Moves `_amount` tokens from `_spender` to `_recipient`.
-     * @param _spender The address of the source account.
+     * @dev Moves `_amount` tokens from `_sender` to `_recipient`.
+     * @param _sender The address of the source account.
      * @param _recipient The address of the destination account.
      * @param _amount The number of tokens to transfer.
      */
     function transferFrom(
-        address _spender,
+        address _sender,
         address _recipient,
         uint256 _amount
     ) public virtual override nonReentrant returns (bool) {
         _approve(
-            _spender,
-            msg.sender,
-            allowance[_spender][msg.sender].sub(_amount)
+            _sender,
+            msg.sender, // spender
+            allowance[_sender][msg.sender].sub(_amount)
         );
-        return _transferTokens(_spender, _recipient, _amount);
+        return _transferTokens(_sender, _recipient, _amount);
     }
 }
